@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour
     
     [SerializeField] Sprite playerOnLadderSprite;
    
-    [SerializeField] GameSession gameSession;
+    GameSession gameSession;
     
     
     //Referencias
@@ -41,7 +43,8 @@ public class Player : MonoBehaviour
     float playerDefaultGravity;
     bool canDash = true;
     bool isDashing;
-    
+
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -50,8 +53,10 @@ public class Player : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         playerDefaultGravity = playerRb.gravityScale;
         playerTr = GetComponent<TrailRenderer>();
+        gameSession = GameSession.GameSessionInstance;
+        Physics2D.IgnoreLayerCollision(7, 9, false);
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -65,6 +70,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    void Reset()
+    {
+        SceneManager.LoadScene("Level1");
+        gameSession.Reset();
+    }
+    
     void Correr()
     {
         playerRb.velocity = new Vector2(playerHorDir.x*velocidadeX, playerRb.velocity.y);
@@ -106,6 +117,7 @@ public class Player : MonoBehaviour
         GetComponent<PlayerInput>().enabled = false;
         playerRb.velocity = Vector2.zero;
         Physics2D.IgnoreLayerCollision(7, 9, true);
+        Reset();
     }
     
     IEnumerator TakingDmg()
