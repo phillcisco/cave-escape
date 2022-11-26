@@ -14,21 +14,14 @@ public class GameSession : MonoBehaviour
     [SerializeField] TextMeshProUGUI playerColetaText;
     [SerializeField] GameObject panelReset;
 
-    private static GameSession _gameSessionInstance;
+    public static GameSession GameSessionInstance { get; private set; }
 
-    public static GameSession GameSessionInstance
-    {
-        get
-        {
-            return _gameSessionInstance;
-        }
-    }
-
+    
     void Awake()
     {
-        if (_gameSessionInstance == null)
+        if (GameSessionInstance == null)
         {
-            _gameSessionInstance = FindObjectOfType<GameSession>();
+            GameSessionInstance = FindObjectOfType<GameSession>();
             DontDestroyOnLoad(gameObject);
         }
         else

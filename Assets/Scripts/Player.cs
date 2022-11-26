@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     Animator playerAnimator;
     BoxCollider2D boxCollider;
     TrailRenderer playerTr;
+    AudioSource audioSourceDMG;
         
     //Internas
     Vector2 playerHorDir;
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour
         playerDefaultGravity = playerRb.gravityScale;
         playerTr = GetComponent<TrailRenderer>();
         gameSession = GameSession.GameSessionInstance;
+        audioSourceDMG = GetComponent<AudioSource>();
         Physics2D.IgnoreLayerCollision(7, 9, false);
     }
     
@@ -125,6 +127,7 @@ public class Player : MonoBehaviour
         isTakingDMG = true;
         playerAnimator.SetBool("isTknDmg",isTakingDMG);
         playerRb.velocity = new Vector2(-magHorDMG*transform.localScale.x,magVerDMG);
+        AudioSource.PlayClipAtPoint(audioSourceDMG.clip,transform.position);
         gameSession.ProcessandoVida();
         yield return new WaitForSecondsRealtime(tmpTakingDMG);
         isTakingDMG = false;

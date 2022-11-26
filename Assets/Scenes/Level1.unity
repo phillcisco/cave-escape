@@ -26879,6 +26879,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6520347187563621094, guid: a507186a376e45a4f8d21e814190e4df, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520347187563621094, guid: a507186a376e45a4f8d21e814190e4df, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520347187563621094, guid: a507186a376e45a4f8d21e814190e4df, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520347187563621094, guid: a507186a376e45a4f8d21e814190e4df, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6520347188406835277, guid: a507186a376e45a4f8d21e814190e4df, type: 3}
       propertyPath: m_Name
       value: GameSession
@@ -26925,6 +26941,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6520347188406835279, guid: a507186a376e45a4f8d21e814190e4df, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520347188899742669, guid: a507186a376e45a4f8d21e814190e4df, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520347188899742669, guid: a507186a376e45a4f8d21e814190e4df, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520347188899742669, guid: a507186a376e45a4f8d21e814190e4df, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520347188899742669, guid: a507186a376e45a4f8d21e814190e4df, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

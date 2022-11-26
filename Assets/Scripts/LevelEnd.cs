@@ -14,4 +14,10 @@ public class LevelEnd : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
         }
     }
+
+    public void LoadScene(string nome)
+    {
+        SceneManager.LoadScene(nome);
+    }
+    
 }
