@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     [SerializeField] float dashCD;
     
     [SerializeField] Sprite playerOnLadderSprite;
-   
+    
     GameSession gameSession;
     
     
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     float playerDefaultGravity;
     bool canDash = true;
     bool isDashing;
-
+ 
   
     // Start is called before the first frame update
     void Start()
@@ -205,4 +205,5 @@ public class Player : MonoBehaviour
         canDash = true;
         playerTr.emitting = isDashing;
     }
+
 }
