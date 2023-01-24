@@ -23,8 +23,15 @@ public class Player : MonoBehaviour
     [SerializeField] float dashDur;
     [SerializeField] float dashCD;
     
-    [SerializeField] Sprite playerOnLadderSprite;
+    [Header("Arrow Prefab")]
+    [SerializeField] GameObject arrowPrefab;
 
+    [SerializeField] GameObject arrowSpawnPoint;
+    
+    
+    [SerializeField] Sprite playerOnLadderSprite;
+    
+    
     GameSession gameSession;
     
     
@@ -134,6 +141,14 @@ public class Player : MonoBehaviour
         playerAnimator.SetBool("isTknDmg",isTakingDMG);
     }
 
+    IEnumerator PlayerShooting()
+    {
+        print("to aqui");
+        playerAnimator.SetBool("IsShootingArrow",true);
+        yield return new WaitForSecondsRealtime(0.4f);
+        playerAnimator.SetBool("IsShootingArrow",false);
+    }
+    
     IEnumerator PlayerDashing()
     {
         canDash = false;
@@ -175,6 +190,22 @@ public class Player : MonoBehaviour
             StartCoroutine(PlayerDashing());
 
     }
+
+    void OnFire(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+        {
+            GameObject arrow = Instantiate(arrowPrefab,arrowSpawnPoint.transform.position,Quaternion.identity);
+            float arrowScale = transform.localScale.x;
+            arrow.transform.localScale = new Vector3(arrowScale,1,1);
+            arrow.GetComponent<ArrowController>().ArrowDir = arrowScale;
+            StartCoroutine(PlayerShooting());
+            
+        }
+        
+    }
+    
+    
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Ladder"))
