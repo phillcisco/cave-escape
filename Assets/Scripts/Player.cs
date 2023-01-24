@@ -143,7 +143,6 @@ public class Player : MonoBehaviour
 
     IEnumerator PlayerShooting()
     {
-        print("to aqui");
         playerAnimator.SetBool("IsShootingArrow",true);
         yield return new WaitForSecondsRealtime(0.4f);
         playerAnimator.SetBool("IsShootingArrow",false);
