@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     [SerializeField] float dashCD;
     
     [SerializeField] Sprite playerOnLadderSprite;
-    
+
     GameSession gameSession;
     
     
@@ -175,7 +175,7 @@ public class Player : MonoBehaviour
             StartCoroutine(PlayerDashing());
 
     }
-    private void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Ladder"))
         {
@@ -188,7 +188,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Ladder"))
         {
@@ -199,11 +199,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void InterruptDashing()
+    void InterruptDashing()
     {
         isDashing = false;
         canDash = true;
         playerTr.emitting = isDashing;
     }
-
+    
 }
