@@ -9,7 +9,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsShootingArrow
+    m_ConditionEvent: isShootingArrow
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isDead
@@ -75,7 +75,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isOnLadder
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: IsShootingArrow
+    m_ConditionEvent: isShootingArrow
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8467548644265016500}
@@ -99,7 +99,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PlayerArrow
-  m_Speed: 1
+  m_Speed: 0.6
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -138,7 +138,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isOnLadder
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: IsShootingArrow
+    m_ConditionEvent: isShootingArrow
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8550965497495903282}
@@ -168,31 +168,31 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isTknDmg
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isDead
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isOnLadder
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: IsShootingArrow
+    m_Controller: {fileID: 9100000}
+  - m_Name: isShootingArrow
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -219,9 +219,6 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: isDead
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: IsShootingArrow
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8084998839836586100}
@@ -332,7 +329,7 @@ AnimatorStateTransition:
     m_ConditionEvent: isTknDmg
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: IsShootingArrow
+    m_ConditionEvent: isShootingArrow
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5540972042568224742}
@@ -394,7 +391,7 @@ AnimatorStateMachine:
     m_Position: {x: 560, y: 160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5094905767597418306}
-    m_Position: {x: 560, y: 280, z: 0}
+    m_Position: {x: 560, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5540972042568224742}
     m_Position: {x: 520.39026, y: -44.48246, z: 0}
@@ -412,7 +409,7 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 290, y: 130, z: 0}
+  m_AnyStatePosition: {x: 280, y: 130, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 740, y: 0, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}

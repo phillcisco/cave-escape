@@ -21,7 +21,7 @@ public class Coin : MonoBehaviour
         if (col.CompareTag("Player") && notDestroyed)
         {
             notDestroyed = false;
-            FindObjectOfType<GameSession>().ProcessandoColetaItem();
+            FindObjectOfType<GameSession>().ProcessandoColetaMoeda();
             AudioSource.PlayClipAtPoint(audioSource.clip, transform.position);
             Destroy(gameObject);
         }

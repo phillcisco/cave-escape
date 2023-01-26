@@ -23,11 +23,10 @@ public class Player : MonoBehaviour
     [SerializeField] float dashDur;
     [SerializeField] float dashCD;
     
-    [Header("Arrow Prefab")]
+    [Header("Arrow")]
     [SerializeField] GameObject arrowPrefab;
-
     [SerializeField] GameObject arrowSpawnPoint;
-    
+    [SerializeField] float arrowAttackCD;
     
     [SerializeField] Sprite playerOnLadderSprite;
     
@@ -51,7 +50,9 @@ public class Player : MonoBehaviour
     float playerDefaultGravity;
     bool canDash = true;
     bool isDashing;
- 
+    bool canShoot = true;
+    bool isShooting = false;
+    float playerArrowAttackAnimLength = 0;
   
     // Start is called before the first frame update
     void Start()
@@ -64,6 +65,15 @@ public class Player : MonoBehaviour
         gameSession = GameSession.GameSessionInstance;
         audioSourceDMG = GetComponent<AudioSource>();
         Physics2D.IgnoreLayerCollision(7, 9, false);
+        
+        foreach (var animationClip in playerAnimator.runtimeAnimatorController.animationClips)
+        {
+            if (animationClip.name == "PlayerArrow")
+            {
+                playerArrowAttackAnimLength = animationClip.length;
+            }
+        }
+        
     }
     
     // Update is called once per frame
@@ -71,7 +81,7 @@ public class Player : MonoBehaviour
     {
         //if (isDead)
         //  return;
-        if (!isTakingDMG && !isDashing)
+        if (!isTakingDMG && !isDashing && !isShooting)
         {
             Correr();
             if (isOnLadder)
@@ -109,16 +119,16 @@ public class Player : MonoBehaviour
     
     public void InitDmgAnimation()
     {
-        StartCoroutine(TakingDmg());
+        StartCoroutine(IETakingDmg());
     }
 
     public void InitPlayerDeath()
     {
-        StartCoroutine(PlayerDeath());
+        StartCoroutine(IEPlayerDeath());
     }
 
 
-    IEnumerator PlayerDeath()
+    IEnumerator IEPlayerDeath()
     {
         yield return new WaitForSecondsRealtime(0.3f);
         playerAnimator.SetBool("isDead",true);
@@ -129,7 +139,7 @@ public class Player : MonoBehaviour
         Reset();
     }
     
-    IEnumerator TakingDmg()
+    IEnumerator IETakingDmg()
     {
         isTakingDMG = true;
         playerAnimator.SetBool("isTknDmg",isTakingDMG);
@@ -141,14 +151,18 @@ public class Player : MonoBehaviour
         playerAnimator.SetBool("isTknDmg",isTakingDMG);
     }
 
-    IEnumerator PlayerShooting()
+    IEnumerator IEPlayerShooting()
     {
-        playerAnimator.SetBool("IsShootingArrow",true);
-        yield return new WaitForSecondsRealtime(0.4f);
-        playerAnimator.SetBool("IsShootingArrow",false);
+        playerAnimator.SetBool("isShootingArrow",isShooting);
+        playerRb.velocity = Vector2.zero;//jogar parar de andar
+        yield return new WaitForSecondsRealtime(playerArrowAttackAnimLength);
+        canShoot = true;
+        isShooting = false;
+        playerAnimator.SetBool("isShootingArrow",isShooting);
+        
     }
     
-    IEnumerator PlayerDashing()
+    IEnumerator IEPlayerDashing()
     {
         canDash = false;
         isDashing = true;
@@ -186,24 +200,23 @@ public class Player : MonoBehaviour
     void OnDash(InputValue inputValue)
     {
         if (inputValue.isPressed && canDash)
-            StartCoroutine(PlayerDashing());
-
+            StartCoroutine(IEPlayerDashing());
     }
 
     void OnFire(InputValue inputValue)
     {
-        if (inputValue.isPressed)
+        if (inputValue.isPressed && gameSession.PlayerArrow > 0 && canShoot)
         {
+            canShoot = false;
+            isShooting = true;
+            gameSession.ProcessandoTiro();
             GameObject arrow = Instantiate(arrowPrefab,arrowSpawnPoint.transform.position,Quaternion.identity);
             float arrowScale = transform.localScale.x;
             arrow.transform.localScale = new Vector3(arrowScale,1,1);
             arrow.GetComponent<ArrowController>().ArrowDir = arrowScale;
-            StartCoroutine(PlayerShooting());
-            
+            StartCoroutine(IEPlayerShooting());
         }
-        
     }
-    
     
     void OnTriggerEnter2D(Collider2D col)
     {

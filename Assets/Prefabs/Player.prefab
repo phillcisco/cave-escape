@@ -243,6 +243,7 @@ MonoBehaviour:
   dashCD: 1
   arrowPrefab: {fileID: 7762389012097629538, guid: 611b234105c235944be1609e261c7a53, type: 3}
   arrowSpawnPoint: {fileID: 8424306805237612041}
+  arrowAttackCD: 0.8
   playerOnLadderSprite: {fileID: -1027800402, guid: 951a7293e3e061a4b80612acad057f61, type: 3}
 --- !u!95 &1495793772573937334
 Animator:
