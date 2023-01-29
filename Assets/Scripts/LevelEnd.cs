@@ -20,4 +20,9 @@ public class LevelEnd : MonoBehaviour
         SceneManager.LoadScene(nome);
     }
     
+    public void Sair()
+    {
+        Application.Quit();
+    }
+    
 }

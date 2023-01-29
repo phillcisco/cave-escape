@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using MobileControl;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
+using Utils;
 
 public class Player : MonoBehaviour
 {
@@ -29,6 +28,9 @@ public class Player : MonoBehaviour
     [SerializeField] float arrowAttackCD;
     
     [SerializeField] Sprite playerOnLadderSprite;
+#if (UNITY_ANDROID || UNITY_IOS) && !(UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER)
+    MobileJoystick joystick;
+#endif
     
     
     GameSession gameSession;
@@ -51,7 +53,7 @@ public class Player : MonoBehaviour
     bool canDash = true;
     bool isDashing;
     bool canShoot = true;
-    bool isShooting = false;
+    bool isShooting;
     float playerArrowAttackAnimLength = 0;
   
     // Start is called before the first frame update
@@ -73,14 +75,18 @@ public class Player : MonoBehaviour
                 playerArrowAttackAnimLength = animationClip.length;
             }
         }
+#if (UNITY_ANDROID || UNITY_IOS) && !(UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER)
+        joystick = GameObject.FindWithTag(Constants.TAG_MOBILE_JOYSTICK).GetComponent<MobileJoystick>();
+        joystick.OnMove += Move;
+#endif
         
     }
+
     
+
     // Update is called once per frame
     void Update()
     {
-        //if (isDead)
-        //  return;
         if (!isTakingDMG && !isDashing && !isShooting)
         {
             Correr();
@@ -178,11 +184,20 @@ public class Player : MonoBehaviour
     }
     
     //Metodos de Actions
+    
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_WEBPLAYER
     void OnMove(InputValue inputValue)
     {
+        //float xClamped = Mathf.Abs(inputValue.Get<Vector2>().x) > 0.5 ? inputValue.Get<Vector2>().x : 0;
+        //float yClamped = Mathf.Abs(inputValue.Get<Vector2>().y) > 0.5 ? inputValue.Get<Vector2>().y : 0;
         playerHorDir = inputValue.Get<Vector2>();
     }
-
+#elif (UNITY_ANDROID || UNITY_IOS)
+    void Move(Vector2 input)
+    {
+        playerHorDir = input;
+    }
+#endif
     void OnJump(InputValue inputValue)
     {
         if (inputValue.isPressed && 

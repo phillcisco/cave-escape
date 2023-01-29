@@ -23,5 +23,6 @@ public class ArrowController : MonoBehaviour
     void Update()
     {
         arrowRb.velocity = velocidadeArrow*ArrowDir*Vector2.right;
+        
     }
 }

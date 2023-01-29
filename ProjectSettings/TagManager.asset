@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ladder
   - BTN_MUTE
+  - TAG_MOBILE_PANEL
+  - TAG_MOBILE_JOYSTICK
+  - MOBILE_JOYSTICK
   layers:
   - Default
   - TransparentFX
