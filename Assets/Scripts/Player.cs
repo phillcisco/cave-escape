@@ -265,3 +265,15 @@ public class Player : MonoBehaviour
     }
     
 }
+//IEnumerator IEPlayerTakingDMG()
+    // {
+    //     mov = new Vector2(-transform.localScale.x*3, 10);
+    //     _playerRb.velocity = new Vector2(mov.x,mov.y);
+    //     yield return new WaitForSecondsRealtime(0.005f);
+    //     mov = Vector2.zero;
+    //     yield return new WaitForSecondsRealtime(1.5f);
+    //     _playerAnimator.SetBool("isTakingDMG", false);
+    //     GetComponent<PlayerInput>().ActivateInput();
+    //     Physics2D.IgnoreLayerCollision(6,9,false);
+    //     Physics2D.IgnoreLayerCollision(6,10,false);
+    // }
