@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -22,7 +23,13 @@ public class ArrowController : MonoBehaviour
 
     void Update()
     {
-        arrowRb.velocity = velocidadeArrow*ArrowDir*Vector2.right;
+        arrowRb.linearVelocity = velocidadeArrow*ArrowDir*Vector2.right;
         
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        other.GetComponent<Enemy>().DestroyEnemy();
+        Destroy(gameObject);
     }
 }

@@ -27,7 +27,7 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "16d30644-e1a3-4636-bc4e-e0dcd9afdc45",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -36,7 +36,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "59611edc-d4da-4ddd-94e9-5f8ad2d4d209",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -45,7 +45,7 @@
                     "name": "Dash",
                     "type": "Button",
                     "id": "060c478a-0080-436e-8829-bcecc354a8ea",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -220,7 +220,7 @@
                 {
                     "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -290,6 +290,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d33e2e96-dfd9-4bb9-9db4-447a5101b615",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false

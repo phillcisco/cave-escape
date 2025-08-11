@@ -42,7 +42,8 @@ public class Player : MonoBehaviour
     BoxCollider2D boxCollider;
     TrailRenderer playerTr;
     AudioSource audioSourceDMG;
-        
+    PlayerTrail _playerTrail;
+    
     //Internas
     Vector2 playerHorDir;
     bool canDoubleJump;
@@ -55,7 +56,12 @@ public class Player : MonoBehaviour
     bool canShoot = true;
     bool isShooting;
     float playerArrowAttackAnimLength = 0;
-  
+
+    void Awake()
+    {
+        _playerTrail = GetComponent<PlayerTrail>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -103,9 +109,9 @@ public class Player : MonoBehaviour
     
     void Correr()
     {
-        playerRb.velocity = new Vector2(playerHorDir.x*velocidadeX, playerRb.velocity.y);
+        playerRb.linearVelocity = new Vector2(playerHorDir.x*velocidadeX, playerRb.linearVelocity.y);
 
-        bool isRunning = Mathf.Abs(playerRb.velocity.x) > Mathf.Epsilon;
+        bool isRunning = Mathf.Abs(playerRb.linearVelocity.x) > Mathf.Epsilon;
         playerAnimator.SetBool("isRunning",isRunning);
         if(isRunning)
             FlipSprite();
@@ -113,13 +119,13 @@ public class Player : MonoBehaviour
 
     void FlipSprite()
     {
-        transform.localScale = new Vector2(Mathf.Sign(playerRb.velocity.x) , 1);
+        transform.localScale = new Vector2(Mathf.Sign(playerRb.linearVelocity.x) , 1);
     }
 
     void Climb()
     {
-        playerRb.velocity = new Vector2(playerRb.velocity.x,velocidadeLadder*playerHorDir.y);
-        bool isClimbing = Mathf.Abs(playerRb.velocity.y) > Mathf.Epsilon;
+        playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x,velocidadeLadder*playerHorDir.y);
+        bool isClimbing = Mathf.Abs(playerRb.linearVelocity.y) > Mathf.Epsilon;
         playerAnimator.enabled = isClimbing;
     }
     
@@ -140,7 +146,7 @@ public class Player : MonoBehaviour
         playerAnimator.SetBool("isDead",true);
         isDead = true;
         GetComponent<PlayerInput>().enabled = false;
-        playerRb.velocity = Vector2.zero;
+        playerRb.linearVelocity = Vector2.zero;
         Physics2D.IgnoreLayerCollision(7, 9, true);
         Reset();
     }
@@ -149,7 +155,7 @@ public class Player : MonoBehaviour
     {
         isTakingDMG = true;
         playerAnimator.SetBool("isTknDmg",isTakingDMG);
-        playerRb.velocity = new Vector2(-magHorDMG*transform.localScale.x,magVerDMG);
+        playerRb.linearVelocity = new Vector2(-magHorDMG*transform.localScale.x,magVerDMG);
         AudioSource.PlayClipAtPoint(audioSourceDMG.clip,transform.position);
         gameSession.ProcessandoVida();
         yield return new WaitForSecondsRealtime(tmpTakingDMG);
@@ -160,7 +166,7 @@ public class Player : MonoBehaviour
     IEnumerator IEPlayerShooting()
     {
         playerAnimator.SetBool("isShootingArrow",isShooting);
-        playerRb.velocity = Vector2.zero;//jogar parar de andar
+        playerRb.linearVelocity = Vector2.zero;//jogar parar de andar
         yield return new WaitForSecondsRealtime(playerArrowAttackAnimLength);
         canShoot = true;
         isShooting = false;
@@ -173,14 +179,16 @@ public class Player : MonoBehaviour
         canDash = false;
         isDashing = true;
         playerRb.gravityScale = 0;
-        playerRb.velocity = new Vector2(transform.localScale.x*dashSpeed, 0);
+        playerRb.linearVelocity = new Vector2(transform.localScale.x*dashSpeed, 0);
         playerTr.emitting = isDashing;
+        _playerTrail.StartTrailVFX();
         yield return new WaitForSecondsRealtime(dashDur);
         isDashing = false;
         playerTr.emitting = isDashing;
         playerRb.gravityScale = playerDefaultGravity;
         yield return new WaitForSecondsRealtime(dashCD);
         canDash = true;
+        _playerTrail.DestroyTrails();
     }
     
     //Metodos de Actions
@@ -203,11 +211,11 @@ public class Player : MonoBehaviour
         if (inputValue.isPressed && 
             boxCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            playerRb.velocity = new Vector2(playerRb.velocity.x,velocidadeY);
+            playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x,velocidadeY);
             canDoubleJump = true;
         }else if (canDoubleJump)
         {
-            playerRb.velocity = new Vector2(playerRb.velocity.x,velocidadeY);
+            playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x,velocidadeY);
             canDoubleJump = false;
         }
     }

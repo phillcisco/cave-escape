@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -8,7 +9,8 @@ public class Enemy : MonoBehaviour
     
     //Serializaveis
     [SerializeField] float enemyVelocidade = 2.0f;
-    
+    [SerializeField] GameObject poofVFX;
+    [SerializeField] AudioClip clip;
     
     //Referencias
     Rigidbody2D enemyRb;
@@ -26,12 +28,12 @@ public class Enemy : MonoBehaviour
 
     void Movimentacao()
     {
-        enemyRb.velocity = new Vector2(enemyVelocidade,0);
+        enemyRb.linearVelocity = new Vector2(enemyVelocidade,0);
     }
 
     void FlipSprite()
     {
-        transform.localScale = new Vector2(-Mathf.Sign(enemyRb.velocity.x) , 1);
+        transform.localScale = new Vector2(-Mathf.Sign(enemyRb.linearVelocity.x) , 1);
     }
     
     void OnTriggerExit2D(Collider2D other)
@@ -46,12 +48,20 @@ public class Enemy : MonoBehaviour
         {
             if (col.collider as BoxCollider2D)
             {
-                Destroy(gameObject);
+                DestroyEnemy();   
             }
             else
             {
                 col.gameObject.GetComponent<Player>().InitDmgAnimation();
             }
         }
+    }
+
+    public void DestroyEnemy()
+    {
+        GameObject vfxClone = Instantiate(poofVFX, transform.position, Quaternion.identity);
+        Destroy(vfxClone,1.2f);
+        Destroy(gameObject);
+        AudioSource.PlayClipAtPoint(clip,transform.position,2);
     }
 }
